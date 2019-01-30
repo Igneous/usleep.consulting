@@ -154,12 +154,22 @@ p {
 
 /* Lists*/
 ul {
-  list-style: circle;
+  list-style: square;
 }
 
 ul, ol {
   margin-top: 0;
   margin-bottom: 1rem;
+}
+
+dt {
+  display: list-item;
+  list-style-type: square;
+}
+
+dd {
+  display: list-item;
+  list-style-type: disc;
 }
 
 /* Horizontal ruler*/
@@ -242,9 +252,9 @@ tbody tr:nth-child(odd) th {
 */
 
 .masthead {
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   text-align: center;
-  padding-top: 26px;
+  padding-top: 20px;
   padding-bottom: 1rem;
   border-bottom: 1px solid #eee;
 }

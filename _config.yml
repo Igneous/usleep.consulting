@@ -1,20 +1,20 @@
 # Built with Jekyll 3.2.0
 
 # Setup
-title:               Ed.
-tagline:             'a jekyll theme for minimal editions'
-description:         'Ed is a Jekyll theme designed for textual editors based on minimal computing principles, and focused on legibility and flexibility.'
-url:                 'http://minicomp.github.io'
-baseurl:             '/ed'
+title:               uSleep Consulting
+tagline:             'Bespoke solutions for Telecoms and Service Providers'
+#description:         "uSleep Consulting focuses on building simple, maintainable VoIP solutions; Need someone to build or maintain your SIP proxies, Media Services, Provisioning Servers and Monitoring? We've got you covered."
+url:                 'https://usleep.consulting'
+# baseurl:             '/ed'
 
 # About/contact
 author:
-  name:              Alex Gil
-  url:               https://twitter.com/elotroalex
-  email:             colibri.alex@gmail.com
+  name:              Bucky Wolfe
+  url:               https://github.com/igneous
+  email:             igneous@usleep.consulting
 
 # Color scheme. Options: red, orange, magenta, cyan, blue, brown
-color-scheme:
+color-scheme: orange
 
 # Permalinks
 permalink: pretty
