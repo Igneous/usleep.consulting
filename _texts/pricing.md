@@ -5,7 +5,7 @@ title: "Rates & Billing Arrangements"
 
 ---
 
-| Service                | Rate     |
+|      __Service__       | __Rate__ |
 | Hourly (no commitment) | $85/hr   |
 | Flat monthly contract  | Starting at $250/mo |
 
