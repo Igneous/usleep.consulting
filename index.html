@@ -2,9 +2,37 @@
 layout: default
 title: "uSleep Consulting"
 ---
+
+  <script>
+    var count = 0;
+    var updateTime = function() {
+      document.getElementById('time').innerHTML = luxon.DateTime.local().setZone('{{ site.author.current_tz }}').toFormat("cccc LLL d, h:mm:ss a (ZZZ)");
+    }
+    setInterval(updateTime, 1000);
+    checkChatStatus();
+    setInterval(checkChatStatus, 60000);
+  </script>
+
+<div class="info">
+  uSleep Location: {{ site.author.current_location }}<br/>
+  <div id="time"></div>
+  <div id="status"></div>
+</div>
+
+<!-- Draggable DIV -->
+<div id="chat">
+  <div id="chatheader">
+    <span id="ctitle">[Chat Window] Bucky @ uSleep</span>
+    <span id="cclose" onclick="hideChat()">&times;</span>
+  </div>
+  <p>Touch me</p>
+  <p>Move me</p>
+</div>
+
 <div class="introduction">
   <h1>Who we are:</h1>
-  <p>uSleep is a nomadic consultancy manned by <a href="https://linkedin.com/in/igneous/">Bucky Wolfe</a>. We specialize in the development, design, and maintenance of VoIP services, and take great pride in solving the challenges that ITSPs and Enterprises face when deploying VoIP for their users. Building simple, secure, maintainable systems on top of proven open source software is our philosophy.</p>
+  <p>uSleep is a nomadic consultancy manned by <a href="https://linkedin.com/in/igneous/">Bucky Wolfe</a>. We specialize in the development, design, and maintenance of VoIP services. Building simple, secure, maintainable systems on top of proven open source software is our philosophy.</p>
+  <p>We like to think we're particularly well-suited to working with smaller CLECs and Wireless ISPs, as they need to be as unburdened as possible in both infrastructure cost/complexity and internal process time.</p>
 
   <h1>Services we provide:</h1>
   <dl>
