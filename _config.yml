@@ -12,8 +12,6 @@ author:
   name:              Bucky Wolfe
   url:               https://github.com/igneous
   email:             igneous@usleep.consulting
-  current_location:  "Vietnam"
-  current_tz:        "Asia/Ho_Chi_Minh"
 
 # Color scheme. Options: red, orange, magenta, cyan, blue, brown
 color-scheme: orange

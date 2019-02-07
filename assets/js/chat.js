@@ -1,15 +1,33 @@
 // "online", "idle", "dnd", "offline"
 
+function checkLocation() {
+  lreq = new XMLHttpRequest();
+  lreq.open('GET', 'https://usleep-chat.herokuapp.com/loc.json', true);
+  lreq.send();
+  lreq.onreadystatechange = updateLocTime;
+}
+
+function updateLocTime() {
+  if (lreq.readyState == 4 && lreq.status == 200) {
+    loc = JSON.parse(lreq.responseText);
+    document.getElementById('location').innerHTML = loc.location;
+    var updateTime = function() {
+      document.getElementById('time').innerHTML = luxon.DateTime.local().setZone(loc.timezone).toFormat("cccc LLL d, h:mm:ss a (ZZZ)");
+    }
+    setInterval(updateTime, 1000);
+  }
+}
+
 function checkChatStatus() {
   sreq = new XMLHttpRequest();
-  sreq.open('GET', 'https://usleep-chat.herokuapp.com/status', true);
+  sreq.open('GET', 'https://usleep-chat.herokuapp.com/status.json', true);
   sreq.send();
   sreq.onreadystatechange = updateChatStatus;
 }
 
 function updateChatStatus() {
   if (sreq.readyState == 4 && sreq.status == 200) {
-    response = sreq.responseText;
+    response = JSON.parse(sreq.responseText);
     switch(response) {
       case "online":
         color = "green";
@@ -33,4 +51,7 @@ function updateChatStatus() {
         "Status: <font color='" + color + "'>" + response + "</font>";
     }
   }
+}
+
+function sendMessage(msg) {
 }

@@ -4,17 +4,14 @@ title: "uSleep Consulting"
 ---
 
   <script>
-    var count = 0;
-    var updateTime = function() {
-      document.getElementById('time').innerHTML = luxon.DateTime.local().setZone('{{ site.author.current_tz }}').toFormat("cccc LLL d, h:mm:ss a (ZZZ)");
-    }
-    setInterval(updateTime, 1000);
+    checkLocation();
     checkChatStatus();
     setInterval(checkChatStatus, 60000);
   </script>
 
 <div class="info">
-  uSleep Location: {{ site.author.current_location }}<br/>
+  <div id="infoheader">Current Status:</div>
+  <div id="location"></div>
   <div id="time"></div>
   <div id="status"></div>
 </div>
