@@ -10,7 +10,7 @@ function checkLocation() {
 function updateLocTime() {
   if (lreq.readyState == 4 && lreq.status == 200) {
     loc = JSON.parse(lreq.responseText);
-    document.getElementById('location').innerHTML = loc.location;
+    document.getElementById('location').innerHTML = "Location: " + loc.location;
     var updateTime = function() {
       document.getElementById('time').innerHTML = luxon.DateTime.local().setZone(loc.timezone).toFormat("cccc LLL d, h:mm:ss a (ZZZ)");
     }
@@ -28,7 +28,7 @@ function checkChatStatus() {
 function updateChatStatus() {
   if (sreq.readyState == 4 && sreq.status == 200) {
     response = JSON.parse(sreq.responseText);
-    switch(response) {
+    switch(response.chat_status) {
       case "online":
         color = "green";
         break;
@@ -42,13 +42,13 @@ function updateChatStatus() {
         color = "gray"
     }
 
-    if (response != "offline") {
+    if (response.chat_status != "offline") {
       document.getElementById('status').innerHTML =
-        "Status: <font color='" + color + "'>" + response + "</font> " +
+        "Status: <font color='" + color + "'>" + response.chat_status + "</font> " +
         "[<a href='#' onclick='showChat()'>Chat</a>]";
     } else {
       document.getElementById('status').innerHTML =
-        "Status: <font color='" + color + "'>" + response + "</font>";
+        "Status: <font color='" + color + "'>" + response.chat_status + "</font>";
     }
   }
 }
