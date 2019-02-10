@@ -2,7 +2,7 @@
 
 function checkLocation() {
   lreq = new XMLHttpRequest();
-  lreq.open('GET', 'http://localhost:9292/loc.json', true);
+  lreq.open('GET', 'https://usleep-chat.herokuapp.com/loc.json', true);
   lreq.send();
   lreq.onreadystatechange = updateLocTime;
 }
@@ -21,7 +21,7 @@ function updateLocTime() {
 
 function checkChatStatus() {
   sreq = new XMLHttpRequest();
-  sreq.open('GET', 'http://localhost:9292/status.json', true);
+  sreq.open('GET', 'https://usleep-chat.herokuapp.com/status.json', true);
   sreq.send();
   sreq.onreadystatechange = updateChatStatus;
 }
@@ -60,7 +60,7 @@ function sendMessage() {
   postdata.user = getCookie("username");
   postdata.message = document.getElementById("chatmsg").value;
   mreq = new XMLHttpRequest();
-  mreq.open('POST', 'http://localhost:9292/message.json', true);
+  mreq.open('POST', 'https://usleep-chat.herokuapp.com/message.json', true);
   mreq.setRequestHeader("Content-Type", "application/json");
   mreq.send(JSON.stringify(postdata));
   mreq.onreadystatechange = updateChatStatus;
