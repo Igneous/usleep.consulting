@@ -22,8 +22,13 @@ title: "uSleep Consulting"
     <span id="ctitle">[Chat Window] Bucky @ uSleep</span>
     <span id="cclose" onclick="hideChat()">&times;</span>
   </div>
-  <p>Touch me</p>
-  <p>Move me</p>
+  <div id="chatcontent"></div>
+  <div id="chatinput">
+    <form onsubmit="event.preventDefault(); sendMessage()">
+      <input id="chatmsg" name="chatmsg" type="text">
+      <button type="button" onclick="sendMessage()">Send</button>
+    </form>
+  </div>
 </div>
 
 <div class="introduction">

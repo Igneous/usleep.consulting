@@ -707,6 +707,11 @@ div#chatheader {
   color: #fff;
 }
 
+div#chatcontent {
+  max-width: 20rem;
+  max-height: 30rem;
+}
+
 span#ctitle {
   padding-left: 3rem;
   padding-right: 3rem;
