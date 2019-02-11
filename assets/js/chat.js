@@ -5,8 +5,8 @@ function checkLocation() {
   lreq.open('GET', 'https://usleep-chat.herokuapp.com/loc.json', true);
   lreq.send();
   lreq.onreadystatechange = function() {
-    if (lreq.readyState == 4 && lreq.status == 200) {
-      loc = JSON.parse(lreq.responseText);
+    if (this.readyState == 4 && this.status == 200) {
+      var loc = JSON.parse(this.responseText);
       document.getElementById('location').innerHTML = "Location: " + loc.location;
       var updateTime = function() {
         document.getElementById('time').innerHTML =
