@@ -21,33 +21,31 @@ function checkChatStatus() {
   var sreq = new XMLHttpRequest();
   sreq.open('GET', 'https://usleep-chat.herokuapp.com/status.json', true);
   sreq.send();
-  sreq.onreadystatechange = updateChatStatus;
-}
+  sreq.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var response = JSON.parse(this.responseText);
+      switch(response.chat_status) {
+        case "online":
+          color = "green";
+          break;
+        case "idle":
+          color = "orange";
+          break;
+        case "dnd":
+          color = "red";
+          break;
+        case "offline":
+          color = "gray"
+      }
 
-function updateChatStatus() {
-  if (sreq.readyState == 4 && sreq.status == 200) {
-    var response = JSON.parse(sreq.responseText);
-    switch(response.chat_status) {
-      case "online":
-        color = "green";
-        break;
-      case "idle":
-        color = "orange";
-        break;
-      case "dnd":
-        color = "red";
-        break;
-      case "offline":
-        color = "gray"
-    }
-
-    if (response.chat_status != "offline") {
-      document.getElementById('status').innerHTML =
-        "Chat: <font color='" + color + "'>" + response.chat_status + "</font> " +
-        "[<a href='#' onclick='showChat()'>open livechat</a>]";
-    } else {
-      document.getElementById('status').innerHTML =
-        "Chat: <font color='" + color + "'>" + response.chat_status + "</font>";
+      if (response.chat_status != "offline") {
+        document.getElementById('status').innerHTML =
+          "Chat: <font color='" + color + "'>" + response.chat_status + "</font> " +
+          "[<a href='#' onclick='showChat()'>open livechat</a>]";
+      } else {
+        document.getElementById('status').innerHTML =
+          "Chat: <font color='" + color + "'>" + response.chat_status + "</font>";
+      }
     }
   }
 }
@@ -61,7 +59,7 @@ function sendMessage() {
   smreq.open('POST', 'https://usleep-chat.herokuapp.com/message.json', true);
   smreq.setRequestHeader("Content-Type", "application/json");
   smreq.send(JSON.stringify(postdata));
-  smreq.onreadystatechange = updateChatStatus;
+  smreq.onreadystatechange = getMessages;
 }
 
 function getMessages() {
@@ -70,12 +68,10 @@ function getMessages() {
   gmreq.open('GET', 'https://usleep-chat.herokuapp.com/messages.json?username=' + getCookie("username"), true);
   gmreq.setRequestHeader("Content-Type", "application/json");
   gmreq.send();
-  gmreq.onreadystatechange = redrawChat;
-}
-
-function redrawChat() {
-  if (gmreq.readyState == 4 && gmreq.status == 200) {
-    document.getElementById('chatcontent').value = renderChat(JSON.parse(gmreq.responseText));
+  gmreq.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById('chatcontent').value = renderChat(JSON.parse(this.responseText));
+    }
   }
 }
 
