@@ -55,6 +55,7 @@ function sendMessage() {
   postdata.time = new Date();
   postdata.user = getCookie("username");
   postdata.message = document.getElementById("chatmsg").value;
+  document.getElementById("chatmsg").value = "";
   var smreq = new XMLHttpRequest();
   smreq.open('POST', 'https://usleep-chat.herokuapp.com/message.json', true);
   smreq.setRequestHeader("Content-Type", "application/json");
@@ -70,18 +71,30 @@ function getMessages() {
   gmreq.send();
   gmreq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById('chatcontent').value = renderChat(JSON.parse(this.responseText));
+      renderChat(this.responseText);
     }
   }
 }
 
-function renderChat(msgArr) {
+function renderChat(msgArrJSON) {
   var msgstr = new String;
-  for (var msg in msgArr) {
-    msgstr += "<div class=\"chatmsg\">[" + msg['time'] + "] " + msg['author'] + " said...</div>" +
-              "<p class=\"chatmsg\">" + msg['message'] + "</p>";
+  var msgs = JSON.parse(msgArrJSON);
+  for (var msg in msgs) {
+    msg = msgs[msg];
+    msgstr += "<div class=\"chatmsg\">[" + msg.time + "] " + msg.author + " said...</div>" +
+              "<p class=\"chatmsg\">" + msg.message + "</p>";
   }
-  return msgstr;
+  var previous = document.getElementById('chatcontent').innerHTML;
+
+  if (previous != msgstr) {
+    document.getElementById('chatcontent').innerHTML = msgstr;
+    scrollToBottom('chatcontent');
+  }
+}
+
+function scrollToBottom(elementId) {
+  var element = document.getElementById(elementId);
+  element.scrollTop = element.scrollHeight;
 }
 
 function getCookie(cname) {
@@ -120,6 +133,7 @@ function setCookie(cname, cvalue, exdays) {
 
 function showChat() {
   checkCookie();
+  getMessages();
   document.getElementById('chat').style.display = "block";
   dragElement(document.getElementById('chat'));
   setInterval(getMessages, 10000);

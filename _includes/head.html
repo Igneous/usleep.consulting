@@ -17,9 +17,24 @@
   <meta name="DC.rights" content="{{ page.rights }}" />
   <meta name="DC.source" content="{{ site.title }}" />
 
+  {% if page.layout == 'default' %}
   <script src="https://use.ntpjs.org/ntp.js" async defer></script>
   <script src="https://moment.github.io/luxon/global/luxon.min.js" async defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.3/mobile-detect.min.js"></script>
   <script src="{{ site.baseurl }}/assets/js/chat.js" ></script>
+
+  <script>
+    window.onload = function() {
+      var md = new MobileDetect(window.navigator.userAgent);
+      if (!md.mobile()) {
+        checkLocation();
+        checkChatStatus();
+        setInterval(checkChatStatus, 60000);
+        document.getElementById('info').style.display = "block";
+      }
+    }
+  </script>
+  {% endif %}
 
     <!-- Open Graph metadata -->
     {% if page.layout == "default" %}

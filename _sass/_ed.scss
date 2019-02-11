@@ -726,6 +726,14 @@ p.chatmsg {
   background-color: antiquewhite;
 }
 
+input#chatmsg {
+  width: 80%;
+}
+
+input#sendbutton {
+  width: 15%;
+}
+
 span#ctitle {
   padding-left: 3rem;
   padding-right: 3rem;
