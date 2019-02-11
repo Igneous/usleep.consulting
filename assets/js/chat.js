@@ -81,7 +81,8 @@ function renderChat(msgArrJSON) {
   var msgs = JSON.parse(msgArrJSON);
   for (var msg in msgs) {
     msg = msgs[msg];
-    msgstr += "<div class=\"chatmsg\">[" + msg.time + "] " + msg.author + " said...</div>" +
+    var time = luxon.DateTime.fromSeconds(msg.time).toFormat("cccc LLL d, h:mm:ss a (ZZZ)");
+    msgstr += "<div class=\"chatmsg\">[" + time + "] " + msg.author + " said...</div>" +
               "<p class=\"chatmsg\">" + msg.message + "</p>";
   }
   var previous = document.getElementById('chatcontent').innerHTML;
