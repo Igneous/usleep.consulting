@@ -708,8 +708,22 @@ div#chatheader {
 }
 
 div#chatcontent {
-  max-width: 20rem;
-  max-height: 30rem;
+  width: 20rem;
+  height: 15rem;
+  overflow-y: scroll;
+  background: beige;
+}
+
+div.chatmsg {
+  text-align: left;
+  font-size: 0.65rem;
+  background-color: antiquewhite;
+}
+
+p.chatmsg {
+  text-align: left;
+  font-size: 0.65rem;
+  background-color: antiquewhite;
 }
 
 span#ctitle {

@@ -1,7 +1,7 @@
 // "online", "idle", "dnd", "offline"
 
 function checkLocation() {
-  lreq = new XMLHttpRequest();
+  var lreq = new XMLHttpRequest();
   lreq.open('GET', 'https://usleep-chat.herokuapp.com/loc.json', true);
   lreq.send();
   lreq.onreadystatechange = updateLocTime;
@@ -20,7 +20,7 @@ function updateLocTime() {
 }
 
 function checkChatStatus() {
-  sreq = new XMLHttpRequest();
+  var sreq = new XMLHttpRequest();
   sreq.open('GET', 'https://usleep-chat.herokuapp.com/status.json', true);
   sreq.send();
   sreq.onreadystatechange = updateChatStatus;
@@ -28,7 +28,7 @@ function checkChatStatus() {
 
 function updateChatStatus() {
   if (sreq.readyState == 4 && sreq.status == 200) {
-    response = JSON.parse(sreq.responseText);
+    var response = JSON.parse(sreq.responseText);
     switch(response.chat_status) {
       case "online":
         color = "green";
@@ -55,15 +55,39 @@ function updateChatStatus() {
 }
 
 function sendMessage() {
-  postdata = {};
+  var postdata = {};
   postdata.time = new Date();
   postdata.user = getCookie("username");
   postdata.message = document.getElementById("chatmsg").value;
-  mreq = new XMLHttpRequest();
-  mreq.open('POST', 'https://usleep-chat.herokuapp.com/message.json', true);
-  mreq.setRequestHeader("Content-Type", "application/json");
-  mreq.send(JSON.stringify(postdata));
-  mreq.onreadystatechange = updateChatStatus;
+  var smreq = new XMLHttpRequest();
+  smreq.open('POST', 'https://usleep-chat.herokuapp.com/message.json', true);
+  smreq.setRequestHeader("Content-Type", "application/json");
+  smreq.send(JSON.stringify(postdata));
+  smreq.onreadystatechange = updateChatStatus;
+}
+
+function getMessages() {
+  checkCookie();
+  var gmreq = new XMLHttpRequest();
+  gmreq.open('GET', 'https://usleep-chat.herokuapp.com/messages.json?username=' + getCookie("username"), true);
+  gmreq.setRequestHeader("Content-Type", "application/json");
+  gmreq.send();
+  gmreq.onreadystatechange = redrawChat;
+}
+
+function redrawChat() {
+  if (gmreq.readyState == 4 && gmreq.status == 200) {
+    document.getElementById('chatcontent').value = renderChat(JSON.parse(gmreq.responseText));
+  }
+}
+
+function renderChat(msgArr) {
+  var msgstr = new String;
+  for (var msg in msgArr) {
+    msgstr += "<div class=\"chatmsg\">[" + msg['time'] + "] " + msg['author'] + " said...</div>" +
+              "<p class=\"chatmsg\">" + msg['message'] + "</p>";
+  }
+  return msgstr;
 }
 
 function getCookie(cname) {
@@ -104,6 +128,7 @@ function showChat() {
   checkCookie();
   document.getElementById('chat').style.display = "block";
   dragElement(document.getElementById('chat'));
+  setInterval(getMessages, 10000);
 }
 
 function hideChat() {
