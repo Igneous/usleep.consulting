@@ -4,18 +4,16 @@ function checkLocation() {
   var lreq = new XMLHttpRequest();
   lreq.open('GET', 'https://usleep-chat.herokuapp.com/loc.json', true);
   lreq.send();
-  lreq.onreadystatechange = updateLocTime;
-}
-
-function updateLocTime() {
-  if (lreq.readyState == 4 && lreq.status == 200) {
-    loc = JSON.parse(lreq.responseText);
-    document.getElementById('location').innerHTML = "Location: " + loc.location;
-    var updateTime = function() {
-      document.getElementById('time').innerHTML =
-        luxon.DateTime.local().setZone(loc.timezone).toFormat("cccc LLL d, h:mm:ss a (ZZZ)");
+  lreq.onreadystatechange = function() {
+    if (lreq.readyState == 4 && lreq.status == 200) {
+      loc = JSON.parse(lreq.responseText);
+      document.getElementById('location').innerHTML = "Location: " + loc.location;
+      var updateTime = function() {
+        document.getElementById('time').innerHTML =
+          luxon.DateTime.local().setZone(loc.timezone).toFormat("cccc LLL d, h:mm:ss a (ZZZ)");
+      }
+      setInterval(updateTime, 1000);
     }
-    setInterval(updateTime, 1000);
   }
 }
 
