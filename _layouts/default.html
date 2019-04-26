@@ -6,11 +6,13 @@
   <body class="theme-base-{{site.color-scheme}}">
 
     <!-- This if statement decides which sidebar to use -->
+    {% comment %}
     {% if page.toc %}
     {% include sidebar-toc.html %}
     {% else %}
     {% include sidebar.html %}
     {% endif %}
+    {% endcomment %}
 
     <!--
       Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS
