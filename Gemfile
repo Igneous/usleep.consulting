@@ -1,6 +1,7 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 gemspec
 
-gem "html-proofer"
-gem "coderay"
-gem "kramdown"
+gem 'jekyll'
+gem 'html-proofer'
+gem 'coderay'
+gem 'kramdown'
